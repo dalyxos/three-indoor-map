@@ -6,7 +6,7 @@ import Scaffold from "objects/Scaffold";
 import { getChildByName } from "utils/Common";
 import { CommonThemes } from "utils/Themes";
 
-const mapUrl = "./data/map1.json";
+const mapUrl = "./data/map2.json";
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 let raycasterList: any = [];
@@ -77,6 +77,8 @@ function Map() {
   const createListeners = () => {
     window.addEventListener("resize", resize);
     window.addEventListener("click", onClickFloor);
+    window.addEventListener("dblclick", onDoubleClick)
+    window.addEventListener("contextmenu", onDoubleClick)
   };
 
   const resize = () => {
@@ -97,6 +99,13 @@ function Map() {
         switchFloor(intersects)
       }
     }
+  };
+
+  const onDoubleClick = (event: any) => {
+    //@ts-ignore
+    scene.getObjectByName("mall").children.forEach((item: any) => {
+      item.visible = true;
+    });
   };
 
   const switchFloor = (intersects: Array<any>) => {
